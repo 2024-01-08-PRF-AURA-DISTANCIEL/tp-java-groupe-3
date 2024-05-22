@@ -74,15 +74,15 @@ public class Pokemon {
 		this.attack = attack;
 	}
 
-	public static void promenade(Pokemon pokemon, Location endroit){
+	public static boolean promenade(Pokemon pokemon, Location endroit){
 		if((pokemon.getSpecie().getType() == PokemonUtils.SpecieType.EAU && endroit == PokemonUtils.Location.Plage)
 		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.INSECTE && endroit == PokemonUtils.Location.Jungle)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.FEU && endroit == PokemonUtils.Location.Volcan)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && endroit == PokemonUtils.Location.Désert)){
-			System.out.println("Le pokemon a apprécié la promenade.");
-		}else {
-			System.out.println("Le pokemon n'a pas apprécié la promenade.");
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.PLANTE && endroit == PokemonUtils.Location.Jardin)
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && endroit == PokemonUtils.Location.Desert)){
+			pokemon.setExperience(pokemon.getExperience()+2);
+			return true;
 		}
+		return false;
 	}
-	
+
 }
