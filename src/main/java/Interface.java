@@ -14,7 +14,7 @@ public class Interface {
         System.out.println("Liste des pokemons : ");
         for (Pokemon pokemon : pokemons) {
             System.out.println(pokemon.getId() + " : " + pokemon.getName() + " - " + pokemon.getSpecie().getType()
-                    + " - " + pokemon.getLevel());
+                    + " - " + pokemon.getLevel() + " - " + pokemon.getCurrentLifePoints());
         }
         System.out.println(" ");
     }
@@ -93,6 +93,10 @@ public class Interface {
                 Interface.getDetailsPokemonById(id);
                 break;
             case "3":
+                Combat combat1 = new Combat(pikachu, rondoudou);
+                int idVainqueur = combat1.fight();
+                System.out.println("Vainqueur : " + idVainqueur);
+                Interface.getAllPokemons();
                 break;
             case "4":
                 break;
