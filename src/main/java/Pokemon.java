@@ -1,5 +1,8 @@
 package main.java;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import main.java.Attack;
 import main.java.PokemonSpecie;
 import main.java.PokemonUtils.Location;
@@ -12,8 +15,8 @@ public class Pokemon {
 	private int level;
 	private int experience;
 	private PokemonSpecie specie;
-	private int currentLifePoints;
-	private int maxLifePoints;
+	private Double currentLifePoints;
+	private Double maxLifePoints;
 	private Attack attack;
 
 	public Pokemon(int id, String name, PokemonSpecie specie) {
@@ -57,16 +60,16 @@ public class Pokemon {
 	public void setSpecie(PokemonSpecie specie) {
 		this.specie = specie;
 	}
-	public int getCurrentLifePoints() {
+	public Double getCurrentLifePoints() {
 		return currentLifePoints;
 	}
-	public void setCurrentLifePoints(int currentLifePoints) {
+	public void setCurrentLifePoints(Double currentLifePoints) {
 		this.currentLifePoints = currentLifePoints;
 	}
-	public int getMaxLifePoints() {
+	public Double getMaxLifePoints() {
 		return maxLifePoints;
 	}
-	public void setMaxLifePoints(int maxLifePoints) {
+	public void setMaxLifePoints(Double maxLifePoints) {
 		this.maxLifePoints = maxLifePoints;
 	}
 	public Attack getAttack() {
@@ -82,9 +85,14 @@ public class Pokemon {
 	}
 	
 	public void launchAttack(Pokemon pokemon) {
+
+		Map<String, Object> mapAttack = PokemonUtils.initMapAttack();
 		Attack attack = this.getAttack();
-		int damage = attack.getDamage();
-		pokemon.setCurrentLifePoints(pokemon.getCurrentLifePoints()- damage);
+		Map<String,Double> map = (Map<String,Double>) mapAttack.get(attack.getType().toString());
+		Double monDouble = Double.valueOf(map.get(pokemon.getSpecie().getType().toString()));
+		Double damage = (pokemon.getLevel() /10) * attack.getDamage() * monDouble;
+		System.out.println("damage = " + damage);
+		pokemon.setCurrentLifePoints(pokemon.getCurrentLifePoints() - damage);
 	}
 
 	public static boolean promenade(Pokemon pokemon, Location endroit){

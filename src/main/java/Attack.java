@@ -5,10 +5,10 @@ import main.java.PokemonUtils.SpecieType;
 public class Attack {
 	
 	private String name;
-	public SpecieType  type;
-	private int damage;
+	public SpecieType type;
+	private Double damage;
 	
-	public Attack(final String name,SpecieType  type, final int damage) {
+	public Attack(final String name, SpecieType type, final Double damage) {
 		super();
 		this.name = name;
 		this.damage = damage;
@@ -23,12 +23,16 @@ public class Attack {
 		this.name = name;
 	}
 
-	public int getDamage() {
+	public Double getDamage() {
 		return damage;
 	}
 
-	public void setDamage(final int damage) {
+	public void setDamage(final Double damage) {
 		this.damage = damage;
+	}
+
+	public SpecieType getType() {
+		return type;
 	}
 
 }

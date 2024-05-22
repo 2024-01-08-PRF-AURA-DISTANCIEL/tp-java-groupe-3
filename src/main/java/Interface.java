@@ -59,18 +59,18 @@ public class Interface {
 
     public static void main(String[] args) {
 
-        Attack attackPlante = new Attack("attackPlante", 10);
-        Attack attackAir = new Attack("attackAir", 10);
-        Attack attackEau = new Attack("attackEau", 10);
-        Attack attackInsecte = new Attack("attackInsecte", 10);
-        PokemonSpecie especePlante = new PokemonSpecie("especePlante", PokemonUtils.SpecieType.PLANTE);
-        PokemonSpecie especeAir = new PokemonSpecie("especeAir", PokemonUtils.SpecieType.AIR);
-        PokemonSpecie especeEau = new PokemonSpecie("especeEau", PokemonUtils.SpecieType.EAU);
-        PokemonSpecie especeInsecte = new PokemonSpecie("especeInsecte", PokemonUtils.SpecieType.INSECTE);
-        Pokemon bulbizarre = new Pokemon(1, "Bulbizarre", 1, 0, especePlante, 100, 100, attackPlante);
-        Pokemon rondoudou = new Pokemon(2, "Rondoudou", 1, 0, especeAir, 100, 100, attackAir);
-        Pokemon pikachu = new Pokemon(3, "Pikachu", 1, 0, especeEau, 100, 100, attackEau);
-        Pokemon aspicot = new Pokemon(4, "Aspicot", 1, 0, especeInsecte, 100, 100, attackInsecte);
+        Attack attackPlante = new Attack("attackPlante", PokemonUtils.SpecieType.PLANTE, Double.valueOf(10));
+        Attack attackAir = new Attack("attackAir", PokemonUtils.SpecieType.AIR, Double.valueOf(20));
+        Attack attackEau = new Attack("attackEau", PokemonUtils.SpecieType.EAU, Double.valueOf(15));
+        Attack attackInsecte = new Attack("attackInsecte", PokemonUtils.SpecieType.INSECTE, Double.valueOf(5));
+        PokemonSpecie especePlante = new PokemonSpecie("especePlante", PokemonUtils.SpecieType.PLANTE, Double.valueOf(100), attackPlante);
+        PokemonSpecie especeAir = new PokemonSpecie("especeAir", PokemonUtils.SpecieType.AIR, Double.valueOf(100), attackAir);
+        PokemonSpecie especeEau = new PokemonSpecie("especeEau", PokemonUtils.SpecieType.EAU, Double.valueOf(100), attackEau);
+        PokemonSpecie especeInsecte = new PokemonSpecie("especeInsecte", PokemonUtils.SpecieType.INSECTE, Double.valueOf(100), attackInsecte);
+        Pokemon bulbizarre = new Pokemon(1, "Bulbizarre", especePlante);
+        Pokemon rondoudou = new Pokemon(2, "Rondoudou", especeAir);
+        Pokemon pikachu = new Pokemon(3, "Pikachu", especeEau);
+        Pokemon aspicot = new Pokemon(4, "Aspicot", especeInsecte);
         pokemons.add(bulbizarre);
         pokemons.add(rondoudou);
         pokemons.add(pikachu);
@@ -99,6 +99,7 @@ public class Interface {
                 Interface.getAllPokemons();
                 break;
             case "4":
+                PokemonGame.discuter(pokemons);
                 break;
             case "5":
                 System.out.println("Entrez l'id du pokemon à promener : ");

@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class PokemonGame {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
         // Init des attaques
@@ -37,7 +37,7 @@ public class PokemonGame {
 
         // Lancement de la discussion
         discuter(pokemons);
-	}
+	}*/
 	
 	 public static void discuter(List<Pokemon> pokemons) {
 	        Collections.shuffle(pokemons);

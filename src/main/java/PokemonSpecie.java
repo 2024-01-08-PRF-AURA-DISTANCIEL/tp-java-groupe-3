@@ -6,17 +6,16 @@ public class PokemonSpecie {
 
 	private String  name;
 	private SpecieType type;
-	private int initialpv;
+	private Double initialpv;
 	private Attack initialAttack;
 
-	public PokemonSpecie(String name, SpecieType type, int initialpv, Attack initialAttack) {
+	public PokemonSpecie(String name, SpecieType type, Double initialpv, Attack initialAttack) {
 		super();
 		this.setName(name);
 		this.setType(type);
 		this.type = type;
 		this.initialpv = initialpv;
 		this.initialAttack = initialAttack;
-		
 	}
 
 	public String getName() {
@@ -35,7 +34,7 @@ public class PokemonSpecie {
 		this.type = type;
 	}
 	
-	public int getInitialpv() {
+	public Double getInitialpv() {
 		return this.initialpv;
 	}
 	public Attack getInitialAttack() {
