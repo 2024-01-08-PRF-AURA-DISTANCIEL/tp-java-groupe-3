@@ -1,12 +1,7 @@
 package main.java;
 
-import java.util.HashMap;
 import java.util.Map;
-
-import main.java.Attack;
-import main.java.PokemonSpecie;
 import main.java.PokemonUtils.Location;
-import main.java.Combat;
 
 public class Pokemon {
 	
@@ -84,15 +79,18 @@ public class Pokemon {
 		this.attack = attack;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void launchAttack(Pokemon pokemon) {
-
 		Map<String, Object> mapAttack = PokemonUtils.initMapAttack();
 		Attack attack = this.getAttack();
 		Map<String,Double> map = (Map<String,Double>) mapAttack.get(attack.getType().toString());
-		Double monDouble = Double.valueOf(map.get(pokemon.getSpecie().getType().toString()));
-		Double damage = (pokemon.getLevel() /10) * attack.getDamage() * monDouble;
-		System.out.println("damage = " + damage);
+		Double damage = Double.valueOf(pokemon.getLevel()) / Double.valueOf(10) * Double.valueOf(attack.getDamage()) * Double.valueOf(map.get(pokemon.getSpecie().getType().toString()));
+		//System.out.println("damage = " + damage);
 		pokemon.setCurrentLifePoints(pokemon.getCurrentLifePoints() - damage);
+		if(pokemon.getCurrentLifePoints() < 0){
+			pokemon.setCurrentLifePoints(Double.valueOf("0"));
+		}
+		System.out.println("Attaque : " + this.getCurrentLifePoints() + "-" + pokemon.getCurrentLifePoints());
 	}
 
 	public static boolean promenade(Pokemon pokemon, Location endroit){
