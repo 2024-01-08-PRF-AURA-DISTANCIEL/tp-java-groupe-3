@@ -13,16 +13,15 @@ public class Pokemon {
 	private int maxLifePoints;
 	private Attack attack;
 
-	public Pokemon(int id, String name, int level, int experience, PokemonSpecie specie, int currentLifePoints,
-			int maxLifePoints, Attack attack) {
+	public Pokemon(int id, String name, PokemonSpecie specie) {
 		this.id = id;
 		this.name = name;
-		this.level = level;
-		this.experience = experience;
+		this.level = 1;
+		this.experience = 0;
 		this.specie = specie;
-		this.currentLifePoints = currentLifePoints;
-		this.maxLifePoints = maxLifePoints;
-		this.attack = attack;
+		this.currentLifePoints = specie.getInitialpv();
+		this.maxLifePoints = specie.getInitialpv();
+		this.attack = specie.getInitialAttack();
 	}
 
 	public int getId() {
@@ -70,6 +69,11 @@ public class Pokemon {
 	public Attack getAttack() {
 		return attack;
 	}
+	
+	public PokemonSpecie getspecie() {
+		return specie;
+	}
+	
 	public void setAttack(Attack attack) {
 		this.attack = attack;
 	}
@@ -78,7 +82,7 @@ public class Pokemon {
 		if((pokemon.getSpecie().getType() == PokemonUtils.SpecieType.EAU && endroit == PokemonUtils.Location.Plage)
 		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.INSECTE && endroit == PokemonUtils.Location.Jungle)
 		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.FEU && endroit == PokemonUtils.Location.Volcan)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && endroit == PokemonUtils.Location.Désert)){
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && endroit == PokemonUtils.Location.Desert)){
 			System.out.println("Le pokemon a apprécié la promenade.");
 		}else {
 			System.out.println("Le pokemon n'a pas apprécié la promenade.");
