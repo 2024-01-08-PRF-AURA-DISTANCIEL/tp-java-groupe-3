@@ -1,6 +1,9 @@
 package main.java;
 
+import main.java.Attack;
+import main.java.PokemonSpecie;
 import main.java.PokemonUtils.Location;
+import main.java.Combat;
 
 public class Pokemon {
 	
@@ -72,6 +75,12 @@ public class Pokemon {
 	}
 	public void setAttack(Attack attack) {
 		this.attack = attack;
+	}
+	
+	public void launchAttack(Pokemon pokemon) {
+		Attack attack = this.getAttack();
+		int damage = attack.getDamage();
+		pokemon.setCurrentLifePoints(pokemon.getCurrentLifePoints()- damage);
 	}
 
 	public static boolean promenade(Pokemon pokemon, Location endroit){
