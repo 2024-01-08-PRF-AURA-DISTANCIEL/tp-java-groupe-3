@@ -4,7 +4,7 @@ import main.java.PokemonUtils.SpecieType;
 
 public class PokemonSpecie {
 
-	private String name;
+	private String  name;
 	private SpecieType type;
 	private int initialpv;
 	private Attack initialAttack;

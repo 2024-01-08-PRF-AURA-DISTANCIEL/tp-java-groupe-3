@@ -1,6 +1,9 @@
 package main.java;
 
+import main.java.Attack;
+import main.java.PokemonSpecie;
 import main.java.PokemonUtils.Location;
+import main.java.Combat;
 
 public class Pokemon {
 	
@@ -77,16 +80,22 @@ public class Pokemon {
 	public void setAttack(Attack attack) {
 		this.attack = attack;
 	}
+	
+	public void launchAttack(Pokemon pokemon) {
+		Attack attack = this.getAttack();
+		int damage = attack.getDamage();
+		pokemon.setCurrentLifePoints(pokemon.getCurrentLifePoints()- damage);
+	}
 
-	public static void promenade(Pokemon pokemon, Location endroit){
+	public static boolean promenade(Pokemon pokemon, Location endroit){
 		if((pokemon.getSpecie().getType() == PokemonUtils.SpecieType.EAU && endroit == PokemonUtils.Location.Plage)
 		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.INSECTE && endroit == PokemonUtils.Location.Jungle)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.FEU && endroit == PokemonUtils.Location.Volcan)
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.PLANTE && endroit == PokemonUtils.Location.Jardin)
 		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && endroit == PokemonUtils.Location.Desert)){
-			System.out.println("Le pokemon a apprécié la promenade.");
-		}else {
-			System.out.println("Le pokemon n'a pas apprécié la promenade.");
+			pokemon.setExperience(pokemon.getExperience()+2);
+			return true;
 		}
+		return false;
 	}
-	
+
 }
