@@ -3,9 +3,9 @@ package main.java;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
-
 import main.java.PokemonUtils.Location;
 
 public class Interface {
@@ -14,45 +14,41 @@ public class Interface {
 
     public static void getAllPokemons() {
         System.out.println("Liste des pokemons : ");
-        for (Pokemon pokemon : pokemons) {
-            System.out.println(pokemon.getId() + " : " + pokemon.getName() + " - " + pokemon.getSpecie().getType()
-                    + " - " + pokemon.getLevel() + " - " + pokemon.getExperience() + " - " + pokemon.getCurrentLifePoints());
-        }
+        pokemons.stream().forEach((pokemon) -> System.out.println(pokemon.getId() + " : " + pokemon.getName() + " - " + pokemon.getSpecie().getType()
+        + " - Niv " + pokemon.getLevel() + " - Exp " + pokemon.getExperience() + " - Life " + pokemon.getCurrentLifePoints()));
         System.out.println(" ");
     }
 
+    public static void getAllPokemonsDecroissant() {
+        System.out.println("Liste des pokemons (ordre niveau décroissant) : ");
+        pokemons.stream()
+			.sorted((a1, a2) -> a2.getLevel() - a1.getLevel())
+            .sorted((a1, a2) -> a2.getExperience() - a1.getExperience())
+			.forEach((pokemon) -> System.out.println(pokemon.getId() + " : " + pokemon.getName() + " - " + pokemon.getSpecie().getType()
+        + " - Niv " + pokemon.getLevel() + " - Exp " + pokemon.getExperience() + " - Life " + pokemon.getCurrentLifePoints()));
+		System.out.println(" ");
+    }
+
     public static void getDetailsPokemonById(int id) {
-        for (Pokemon pokemon : pokemons) {
-            if (pokemon.getId() == id) {
-                System.out.println("Détails du pokemon : ");
-                System.out.println("Id : " + pokemon.getId());
-                System.out.println("Name : " + pokemon.getName());
-                System.out.println("Level : " + pokemon.getLevel());
-                System.out.println("Experience : " + pokemon.getExperience());
-                System.out.println("Specie : " + pokemon.getSpecie().getType());
-                System.out.println("Current Life Points : " + pokemon.getCurrentLifePoints());
-                System.out.println("Max Life Points : " + pokemon.getMaxLifePoints());
-                System.out.println("Attack : " + pokemon.getAttack().getName());
-                System.out.println(" ");
-            }
-        }
+        pokemons.stream()
+        .filter(a -> a.getId() == id)
+        .forEach((pokemon) -> {System.out.println("Détails du pokemon : ");
+        System.out.println("Id : " + pokemon.getId());
+        System.out.println("Name : " + pokemon.getName());
+        System.out.println("Level : " + pokemon.getLevel());
+        System.out.println("Experience : " + pokemon.getExperience());
+        System.out.println("Specie : " + pokemon.getSpecie().getType());
+        System.out.println("Current Life Points : " + pokemon.getCurrentLifePoints());
+        System.out.println("Max Life Points : " + pokemon.getMaxLifePoints());
+        System.out.println("Attack : " + pokemon.getAttack().getName());
+        System.out.println(" ");});
     }
 
     public static Pokemon getPokemonById(int id) {
-        for (Pokemon pokemon : pokemons) {
-            if (pokemon.getId() == id) {
-                return pokemon;
-            }
-        }
-        return null;
-    }
-    
-    public static void announcement(Pokemon pokemon) {
-    	
-    	System.out.println("The winner of the fight is"  + " " +  pokemon.getName());
-    	System.out.println("Their experience is now" + " " +  pokemon.getExperience());
-    	System.out.println("Their level is" + " "+ pokemon.getLevel());
-    	
+        Optional<Pokemon> pok = pokemons.stream()
+        .filter(a -> a.getId() == id)
+        .findFirst();
+        return pok.get();
     }
 
     public static void walk(Pokemon pokemon, Location location) {
@@ -71,7 +67,6 @@ public class Interface {
 	        Collections.shuffle(pokemons);
 	        Random random = new Random();
 	        int count = 0;
-
 	        while (count < 5 && count < pokemons.size()) {
 	            Pokemon pokemon = pokemons.get(count);
 	            String phrase = genererPhrase(pokemon.getspecie().getName(), random);
@@ -103,12 +98,13 @@ public class Interface {
      @SuppressWarnings("resource")
     public static void afficherMenu(){
         System.out.println("Menu : ");
-        System.out.println("Tapez 1 : pour afficher la liste de tous les pokemons.");
+        System.out.println("Tapez 1 : pour afficher la liste des pokemons.");
         System.out.println("Tapez 2 : pour afficher le détail d'un pokemon.");
         System.out.println("Tapez 3 : pour déclencher un combat.");
         System.out.println("Tapez 4 : pour lancer une discussion.");
         System.out.println("Tapez 5 : pour promener un pokemon.");
         System.out.println("Tapez 6: pour soigner un pokemon.");
+        System.out.println("Tapez 6 : pour afficher la liste des pokemons (ordre niveau décroissant).");
         Scanner scanner = new Scanner(System.in);
         switch (scanner.nextLine()) {
             case "1":
@@ -126,15 +122,14 @@ public class Interface {
                 int id1 = scanner.nextInt();
                 System.out.println("Entrez l'id du pokemon 2 : ");
                 int id2 = scanner.nextInt();
-
-                Combat combat = new Combat(Interface.getPokemonById(id1), Interface.getPokemonById(id2));
+                System.out.println("Entrez le choix de l'arene (1:CHAMP, 2:VILLE, 3:VOLCAN, 4:MARAIS_TOXIQUE) : ");
+                int arene = scanner.nextInt();
+                Combat combat = new Combat(Interface.getPokemonById(id1), Interface.getPokemonById(id2), PokemonUtils.convertAreneByInt(arene));
                 int idVainqueur = combat.fight();
                 //System.out.println("Vainqueur : " + idVainqueur);
                 int idPerdant = (idVainqueur == id1) ? id2 : id1;
                 int exp = Interface.getPokemonById(idPerdant).getLevel() * 4;
                 Interface.getPokemonById(idVainqueur).setExperience(Interface.getPokemonById(idVainqueur).getExperience() + exp);
-                Pokemon winnerPokemon = Interface.getPokemonById(idVainqueur);
-                Interface.announcement(winnerPokemon);
                 Interface.getAllPokemons();
                 Interface.afficherMenu();
                 break;
@@ -145,18 +140,15 @@ public class Interface {
             case "5":
                 System.out.println("Entrez l'id du pokemon à promener : ");
                 int id3 = scanner.nextInt();
-                System.out.println("Entrez l'endroit de la promenade (1:Plage, 2:Jungle, 3:Jardin, 4:Desert) : ");
+                System.out.println("Entrez l'endroit de la promenade (1:PLAGE, 2:JUNGLE, 3:JARDIN, 4:DESERT) : ");
                 int lieu = scanner.nextInt();
                 Interface.walk(Interface.getPokemonById(id3),PokemonUtils.convertLocationByInt(lieu));
                 Interface.afficherMenu();
                 break;
-                
             case "6":
-            	System.out.println("Entrez l'id du pokemon à soigner : ");
-            	int id4  = scanner.nextInt();
-            	Interface.getPokemonById(id4).setCurrentLifePoints(Interface.getPokemonById(id4).getMaxLifePoints());
-            	System.out.println(Interface.getPokemonById(id4).getName() + " " + "is now fully healed");
-            	Interface.afficherMenu();
+                Interface.getAllPokemonsDecroissant();
+                Interface.afficherMenu();
+                break;
             default:
                 System.out.println("FIN");
                 break;
