@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
 import main.java.PokemonUtils.Location;
+import main.java.PokemonUtils.SpecieType;
 
 public class Interface {
 
@@ -94,6 +95,12 @@ public class Interface {
 	        return ponctuations[random.nextInt(ponctuations.length)];
 	 }
 
+     public static void creerPokemon(String nom, SpecieType type) {
+        PokemonSpecie nouvelleEspece = new PokemonSpecie("espece" + nom, type, Double.valueOf(100), null);
+        Pokemon nouveauPokemon = new Pokemon(pokemons.size() +1 , nom, nouvelleEspece);
+        pokemons.add(nouveauPokemon);
+        System.out.println("Pokémon créé avec succès!");
+    }
 
      @SuppressWarnings("resource")
     public static void afficherMenu(){
@@ -103,8 +110,10 @@ public class Interface {
         System.out.println("Tapez 3 : pour déclencher un combat.");
         System.out.println("Tapez 4 : pour lancer une discussion.");
         System.out.println("Tapez 5 : pour promener un pokemon.");
-        System.out.println("Tapez 6: pour soigner un pokemon.");
-        System.out.println("Tapez 6 : pour afficher la liste des pokemons (ordre niveau décroissant).");
+        System.out.println("Tapez 6 : pour soigner un pokemon.");
+        System.out.println("Tapez 7 : pour afficher la liste des pokemons (ordre niveau décroissant).");
+        System.out.println("Tapez 8 : pour créer un pokemon.");
+        System.out.println("Tapez 9 : pour supprimer un pokemon.");
         Scanner scanner = new Scanner(System.in);
         switch (scanner.nextLine()) {
             case "1":
@@ -146,7 +155,23 @@ public class Interface {
                 Interface.afficherMenu();
                 break;
             case "6":
+           
+                System.out.println("Entrez l'id du pokemon à soigner : ");
+                int id4  = scanner.nextInt();
+                Interface.getPokemonById(id4).setCurrentLifePoints(Interface.getPokemonById(id4).getMaxLifePoints());
+                System.out.println(Interface.getPokemonById(id4).getName() + " " + "is now fully healed");
+                Interface.afficherMenu();
+                break;
+            case "7":
                 Interface.getAllPokemonsDecroissant();
+                Interface.afficherMenu();
+                break;
+            case "8":
+                System.out.print("Entrez le nom du Pokémon : ");
+                String nom = scanner.nextLine();
+                System.out.println("Choisissez l'espèce du Pokémon : (1:AIR, 2:EAU, 3:INSECTE, 4:PLANTE)");
+                int esp = scanner.nextInt();
+                Interface.creerPokemon(nom, PokemonUtils.convertSpecieByInt(esp));
                 Interface.afficherMenu();
                 break;
             default:

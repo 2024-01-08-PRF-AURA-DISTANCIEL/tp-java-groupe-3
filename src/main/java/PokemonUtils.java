@@ -17,6 +17,21 @@ public class PokemonUtils {
         CHAMP, VILLE, VOLCAN, MARAIS_TOXIQUE
     };
 
+    public static PokemonUtils.SpecieType convertSpecieByInt(int specie) {
+        switch (specie) {
+            case 1:
+                return PokemonUtils.SpecieType.AIR;
+            case 2:
+                return PokemonUtils.SpecieType.EAU;
+            case 3:
+                return PokemonUtils.SpecieType.INSECTE;
+            case 4:
+                return PokemonUtils.SpecieType.PLANTE;
+            default:
+                return null;
+        }
+    }
+
     public static PokemonUtils.Location convertLocationByInt(int location) {
         switch (location) {
             case 1:
