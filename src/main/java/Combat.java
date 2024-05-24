@@ -8,15 +8,11 @@ public class Combat {
 	private Pokemon combatantB;
 	private PokemonUtils.Arene arene;
 
-	public Combat(Pokemon pokemon1, Pokemon pokemon2) 
+	public Combat(Pokemon pokemon1, Pokemon pokemon2, PokemonUtils.Arene arene) 
 	{
-		
 		if(pokemon1.getCurrentLifePoints() == 0 || pokemon2.getCurrentLifePoints() == 0) {
 			System.out.println("All pokemons fighting need to have pv > 0");
 			endCombat();
-			
-			
-			
 		}
 		this.combatantA = pokemon2;
 		this.combatantB = pokemon1;
