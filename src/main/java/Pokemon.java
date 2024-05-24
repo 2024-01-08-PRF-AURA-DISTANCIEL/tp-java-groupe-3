@@ -47,8 +47,9 @@ public class Pokemon {
 		return experience;
 	}
 	public void setExperience(int experience) {
-		int expTemp = experience - (this.getLevel() * 5) - 5;
+		int expTemp = experience - ((this.getLevel() * 5) - 5);
 		while(expTemp >= 5){
+			System.out.println("dans le while");
 			this.setLevel(this.getLevel() + 1);
 			expTemp = expTemp - 5;
 		}
@@ -96,9 +97,8 @@ public class Pokemon {
 		if(pokemon.getCurrentLifePoints() < 0){
 			pokemon.setCurrentLifePoints(Double.valueOf("0"));
 		}
-		if(attackModifier >1) {System.out.println("Attaque super efficace");}
-		else if(attackModifier <1) {System.out.println("Ce n'est pas trés efficace");}
-		System.out.println("Attaque : " + this.getCurrentLifePoints() + "-" + pokemon.getCurrentLifePoints());
+		String messageAttack = (attackModifier >1) ? "Attaque super efficace" : "Ce n'est pas trés efficace";
+		System.out.println("Attaque : " + this.getCurrentLifePoints() + " - " + pokemon.getCurrentLifePoints() + " : " + messageAttack);
 	}
 
 	public static boolean promenade(Pokemon pokemon, Location endroit){
