@@ -51,6 +51,15 @@ public class Interface {
         .findFirst();
         return pok.get();
     }
+    
+
+    public static void announcement(Pokemon pokemon) {
+
+    	System.out.println("The winner of the fight is"  + " " +  pokemon.getName());
+    	System.out.println("Their experience is now" + " " +  pokemon.getExperience());
+    	System.out.println("Their level is" + " "+ pokemon.getLevel());
+
+    }
 
     public static void walk(Pokemon pokemon, Location location) {
         System.out.println("Promenade de " + pokemon.getName() + " : ");
@@ -138,7 +147,9 @@ public class Interface {
                 //System.out.println("Vainqueur : " + idVainqueur);
                 int idPerdant = (idVainqueur == id1) ? id2 : id1;
                 int exp = Interface.getPokemonById(idPerdant).getLevel() * 4;
+                Pokemon pokemonWinner =  Interface.getPokemonById(idVainqueur);
                 Interface.getPokemonById(idVainqueur).setExperience(Interface.getPokemonById(idVainqueur).getExperience() + exp);
+                Interface.announcement(pokemonWinner);
                 Interface.getAllPokemons();
                 Interface.afficherMenu();
                 break;
@@ -159,7 +170,7 @@ public class Interface {
                 System.out.println("Entrez l'id du pokemon Ã  soigner : ");
                 int id4  = scanner.nextInt();
                 Interface.getPokemonById(id4).setCurrentLifePoints(Interface.getPokemonById(id4).getMaxLifePoints());
-                System.out.println(Interface.getPokemonById(id4).getName() + " " + "is now fully healed");
+                System.out.println(Interface.getPokemonById(id4).getName() + " " + "est complètement guéri");
                 Interface.afficherMenu();
                 break;
             case "7":
