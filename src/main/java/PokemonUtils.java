@@ -10,19 +10,38 @@ public class PokemonUtils {
     };
 
     public static enum Location {
-        Plage, Jungle, Jardin, Desert
+        PLAGE, JUNGLE, JARDIN, DESERT
+    };
+    
+    public static enum Arene {
+        CHAMP, VILLE, VOLCAN, MARAIS_TOXIQUE
     };
 
     public static PokemonUtils.Location convertLocationByInt(int location) {
         switch (location) {
             case 1:
-                return PokemonUtils.Location.Plage;
+                return PokemonUtils.Location.PLAGE;
             case 2:
-                return PokemonUtils.Location.Jungle;
+                return PokemonUtils.Location.JUNGLE;
             case 3:
-                return PokemonUtils.Location.Jardin;
+                return PokemonUtils.Location.JARDIN;
             case 4:
-                return PokemonUtils.Location.Desert;
+                return PokemonUtils.Location.DESERT;
+            default:
+                return null;
+        }
+    }
+
+    public static PokemonUtils.Arene convertAreneByInt(int arene) {
+        switch (arene) {
+            case 1:
+                return PokemonUtils.Arene.CHAMP;
+            case 2:
+                return PokemonUtils.Arene.VILLE;
+            case 3:
+                return PokemonUtils.Arene.VOLCAN;
+            case 4:
+                return PokemonUtils.Arene.MARAIS_TOXIQUE;
             default:
                 return null;
         }

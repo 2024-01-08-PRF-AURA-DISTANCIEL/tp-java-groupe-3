@@ -121,7 +121,9 @@ public class Interface {
                 int id1 = scanner.nextInt();
                 System.out.println("Entrez l'id du pokemon 2 : ");
                 int id2 = scanner.nextInt();
-                Combat combat = new Combat(Interface.getPokemonById(id1), Interface.getPokemonById(id2));
+                System.out.println("Entrez le choix de l'arene (1:CHAMP, 2:VILLE, 3:VOLCAN, 4:MARAIS_TOXIQUE) : ");
+                int arene = scanner.nextInt();
+                Combat combat = new Combat(Interface.getPokemonById(id1), Interface.getPokemonById(id2), PokemonUtils.convertAreneByInt(arene));
                 int idVainqueur = combat.fight();
                 System.out.println("Vainqueur : " + idVainqueur);
                 int idPerdant = (idVainqueur == id1) ? id2 : id1;
@@ -137,7 +139,7 @@ public class Interface {
             case "5":
                 System.out.println("Entrez l'id du pokemon à promener : ");
                 int id3 = scanner.nextInt();
-                System.out.println("Entrez l'endroit de la promenade (1:Plage, 2:Jungle, 3:Jardin, 4:Desert) : ");
+                System.out.println("Entrez l'endroit de la promenade (1:PLAGE, 2:JUNGLE, 3:JARDIN, 4:DESERT) : ");
                 int lieu = scanner.nextInt();
                 Interface.walk(Interface.getPokemonById(id3),PokemonUtils.convertLocationByInt(lieu));
                 Interface.afficherMenu();

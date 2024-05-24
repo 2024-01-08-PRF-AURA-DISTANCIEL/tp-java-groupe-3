@@ -94,10 +94,10 @@ public class Pokemon {
 	}
 
 	public static boolean promenade(Pokemon pokemon, Location endroit){
-		if((pokemon.getSpecie().getType() == PokemonUtils.SpecieType.EAU && endroit == PokemonUtils.Location.Plage)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.INSECTE && endroit == PokemonUtils.Location.Jungle)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.PLANTE && endroit == PokemonUtils.Location.Jardin)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && endroit == PokemonUtils.Location.Desert)){
+		if((pokemon.getSpecie().getType() == PokemonUtils.SpecieType.EAU && endroit == PokemonUtils.Location.PLAGE)
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.INSECTE && endroit == PokemonUtils.Location.JUNGLE)
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.PLANTE && endroit == PokemonUtils.Location.JARDIN)
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && endroit == PokemonUtils.Location.DESERT)){
 			pokemon.setExperience(pokemon.getExperience()+2);
 			return true;
 		}
