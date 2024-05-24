@@ -12,7 +12,7 @@ public class Combat {
 	{
 		if(pokemon1.getCurrentLifePoints() == 0 || pokemon2.getCurrentLifePoints() == 0) {
 			System.out.println("All pokemons fighting need to have pv > 0");
-			endCombat();
+			return;
 		}
 		this.combatantA = pokemon2;
 		this.combatantB = pokemon1;
@@ -47,16 +47,12 @@ public class Combat {
 		return combatantA.getCurrentLifePoints() > 0 ? combatantA.getId() : combatantB.getId();
 	}
 
-	public static void announcement(Pokemon pokemon) {
+	public void announcement(Pokemon pokemon) {
     	System.out.println("The winner of the fight is"  + " " +  pokemon.getName());
     	System.out.println("Their experience is now" + " " +  pokemon.getExperience());
     	System.out.println("Their level is" + " "+ pokemon.getLevel());
 		System.out.println(" ");
     }
-	
-	public void endCombat() {
-		return;
-	}
 
 	public Pokemon getCombatantA() {
 		return combatantA;

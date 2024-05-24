@@ -51,7 +51,7 @@ public class Interface {
         System.out.println("Tapez 6 : pour soigner un pokemon.");
         System.out.println("Tapez 7 : pour afficher la liste des pokemons (ordre niveau décroissant).");
         System.out.println("Tapez 8 : pour créer un pokemon.");
-        System.out.println("Tapez 9 : pour supprimer un pokemon.");
+        //System.out.println("Tapez 9 : pour supprimer un pokemon.");
         Scanner scanner = new Scanner(System.in);
         switch (scanner.nextLine()) {
             case "1":
@@ -77,7 +77,7 @@ public class Interface {
                 int exp = Pokemon.getPokemonById(pokemons, idPerdant).getLevel() * 4;
                 Pokemon pokemonWinner =  Pokemon.getPokemonById(pokemons, idVainqueur);
                 Pokemon.getPokemonById(pokemons, idVainqueur).setExperience(Pokemon.getPokemonById(pokemons, idVainqueur).getExperience() + exp);
-                Combat.announcement(pokemonWinner);
+                combat.announcement(pokemonWinner);
                 Interface.afficherMenu();
                 break;
             case "4":
