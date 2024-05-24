@@ -46,6 +46,14 @@ public class Interface {
         }
         return null;
     }
+    
+    public static void announcement(Pokemon pokemon) {
+    	
+    	System.out.println("The winner of the fight is"  + " " +  pokemon.getName());
+    	System.out.println("Their experience is now" + " " +  pokemon.getExperience());
+    	System.out.println("Their level is" + " "+ pokemon.getLevel());
+    	
+    }
 
     public static void walk(Pokemon pokemon, Location location) {
         System.out.println("Promenade de " + pokemon.getName() + " : ");
@@ -100,6 +108,7 @@ public class Interface {
         System.out.println("Tapez 3 : pour déclencher un combat.");
         System.out.println("Tapez 4 : pour lancer une discussion.");
         System.out.println("Tapez 5 : pour promener un pokemon.");
+        System.out.println("Tapez 6: pour soigner un pokemon.");
         Scanner scanner = new Scanner(System.in);
         switch (scanner.nextLine()) {
             case "1":
@@ -120,11 +129,12 @@ public class Interface {
 
                 Combat combat = new Combat(Interface.getPokemonById(id1), Interface.getPokemonById(id2));
                 int idVainqueur = combat.fight();
-                System.out.println("Vainqueur : " + idVainqueur);
+                //System.out.println("Vainqueur : " + idVainqueur);
                 int idPerdant = (idVainqueur == id1) ? id2 : id1;
                 int exp = Interface.getPokemonById(idPerdant).getLevel() * 4;
                 Interface.getPokemonById(idVainqueur).setExperience(Interface.getPokemonById(idVainqueur).getExperience() + exp);
-
+                Pokemon winnerPokemon = Interface.getPokemonById(idVainqueur);
+                Interface.announcement(winnerPokemon);
                 Interface.getAllPokemons();
                 Interface.afficherMenu();
                 break;
@@ -140,6 +150,13 @@ public class Interface {
                 Interface.walk(Interface.getPokemonById(id3),PokemonUtils.convertLocationByInt(lieu));
                 Interface.afficherMenu();
                 break;
+                
+            case "6":
+            	System.out.println("Entrez l'id du pokemon à soigner : ");
+            	int id4  = scanner.nextInt();
+            	Interface.getPokemonById(id4).setCurrentLifePoints(Interface.getPokemonById(id4).getMaxLifePoints());
+            	System.out.println(Interface.getPokemonById(id4).getName() + " " + "is now fully healed");
+            	Interface.afficherMenu();
             default:
                 System.out.println("FIN");
                 break;

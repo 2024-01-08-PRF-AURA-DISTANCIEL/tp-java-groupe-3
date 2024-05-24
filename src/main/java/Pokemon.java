@@ -84,12 +84,15 @@ public class Pokemon {
 		Map<String, Object> mapAttack = PokemonUtils.initMapAttack();
 		Attack attack = this.getAttack();
 		Map<String,Double> map = (Map<String,Double>) mapAttack.get(attack.getType().toString());
-		Double damage = Double.valueOf(pokemon.getLevel()) / Double.valueOf(10) * Double.valueOf(attack.getDamage()) * Double.valueOf(map.get(pokemon.getSpecie().getType().toString()));
+		Double attackModifier = Double.valueOf(map.get(pokemon.getSpecie().getType().toString()));
+		Double damage = Double.valueOf(pokemon.getLevel()) / Double.valueOf(10) * Double.valueOf(attack.getDamage()) * attackModifier;
 		//System.out.println("damage = " + damage);
 		pokemon.setCurrentLifePoints(pokemon.getCurrentLifePoints() - damage);
 		if(pokemon.getCurrentLifePoints() < 0){
 			pokemon.setCurrentLifePoints(Double.valueOf("0"));
 		}
+		if(attackModifier >1) {System.out.println("Attaque super efficace");}
+		else if(attackModifier <1) {System.out.println("Ce n'est pas très efficace");}
 		System.out.println("Attaque : " + this.getCurrentLifePoints() + "-" + pokemon.getCurrentLifePoints());
 	}
 

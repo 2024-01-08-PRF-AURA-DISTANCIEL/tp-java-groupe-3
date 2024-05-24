@@ -7,7 +7,16 @@ public class Combat {
 	Pokemon combatantA;
 	Pokemon combatantB;
 
-	public Combat(Pokemon pokemon1, Pokemon pokemon2) {
+	public Combat(Pokemon pokemon1, Pokemon pokemon2) 
+	{
+		
+		if(pokemon1.getCurrentLifePoints() == 0 || pokemon2.getCurrentLifePoints() == 0) {
+			System.out.println("All pokemons fighting need to have pv > 0");
+			endCombat();
+			
+			
+			
+		}
 		this.combatantA = pokemon2;
 		this.combatantB = pokemon1;
 		Random rand = new Random();
@@ -32,6 +41,10 @@ public class Combat {
 			
 		}
 		return combatantA.getCurrentLifePoints() > 0 ? combatantA.getId() : combatantB.getId();
+	}
+	
+	public void endCombat() {
+		return;
 	}
 
 }
