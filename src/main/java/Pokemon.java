@@ -1,6 +1,10 @@
 package main.java;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 import main.java.PokemonUtils.Location;
 
 public class Pokemon {
@@ -85,6 +89,45 @@ public class Pokemon {
 		this.attack = attack;
 	}
 	
+	public static void getAllPokemons(List<Pokemon> pokemons) {
+        System.out.println("Liste des pokemons : ");
+        pokemons.stream().forEach((pokemon) -> System.out.println(pokemon.getId() + " : " + pokemon.getName() + " - " + pokemon.getSpecie().getType()
+        + " - Niv " + pokemon.getLevel() + " - Exp " + pokemon.getExperience() + " - Life " + pokemon.getCurrentLifePoints()));
+        System.out.println(" ");
+    }
+
+	public static void getAllPokemonsDecroissant(List<Pokemon> pokemons) {
+        System.out.println("Liste des pokemons (ordre niveau décroissant) : ");
+        pokemons.stream()
+			.sorted((a1, a2) -> a2.getLevel() - a1.getLevel())
+            .sorted((a1, a2) -> a2.getExperience() - a1.getExperience())
+			.forEach((pokemon) -> System.out.println(pokemon.getId() + " : " + pokemon.getName() + " - " + pokemon.getSpecie().getType()
+        + " - Niv " + pokemon.getLevel() + " - Exp " + pokemon.getExperience() + " - Life " + pokemon.getCurrentLifePoints()));
+		System.out.println(" ");
+    }
+
+	public static void getDetailsPokemonById(List<Pokemon> pokemons, int id) {
+        pokemons.stream()
+        .filter(a -> a.getId() == id)
+        .forEach((pokemon) -> {System.out.println("Détails du pokemon : ");
+        System.out.println("Id : " + pokemon.getId());
+        System.out.println("Name : " + pokemon.getName());
+        System.out.println("Level : " + pokemon.getLevel());
+        System.out.println("Experience : " + pokemon.getExperience());
+        System.out.println("Specie : " + pokemon.getSpecie().getType());
+        System.out.println("Current Life Points : " + pokemon.getCurrentLifePoints());
+        System.out.println("Max Life Points : " + pokemon.getMaxLifePoints());
+        System.out.println("Attack : " + pokemon.getAttack().getName());
+        System.out.println(" ");});
+    }
+
+    public static Pokemon getPokemonById(List<Pokemon> pokemons, int id) {
+        Optional<Pokemon> pok = pokemons.stream()
+        .filter(a -> a.getId() == id)
+        .findFirst();
+        return pok.get();
+    }
+
 	@SuppressWarnings("unchecked")
 	public void launchAttack(Pokemon pokemon) {
 		Map<String, Object> mapAttack = PokemonUtils.initMapAttack();
@@ -101,15 +144,57 @@ public class Pokemon {
 		System.out.println("Attaque : " + this.getCurrentLifePoints() + " - " + pokemon.getCurrentLifePoints() + " : " + messageAttack);
 	}
 
-	public static boolean promenade(Pokemon pokemon, Location endroit){
-		if((pokemon.getSpecie().getType() == PokemonUtils.SpecieType.EAU && endroit == PokemonUtils.Location.PLAGE)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.INSECTE && endroit == PokemonUtils.Location.JUNGLE)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.PLANTE && endroit == PokemonUtils.Location.JARDIN)
-		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && endroit == PokemonUtils.Location.DESERT)){
+	public static void walk(Pokemon pokemon, Location location) {
+        System.out.println("Promenade de " + pokemon.getName() + " : ");
+		boolean retourPromenade = false;
+		if((pokemon.getSpecie().getType() == PokemonUtils.SpecieType.EAU && location == PokemonUtils.Location.PLAGE)
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.INSECTE && location == PokemonUtils.Location.JUNGLE)
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.PLANTE && location == PokemonUtils.Location.JARDIN)
+		|| (pokemon.getSpecie().getType() == PokemonUtils.SpecieType.AIR && location == PokemonUtils.Location.DESERT)){
 			pokemon.setExperience(pokemon.getExperience()+2);
-			return true;
+			retourPromenade = true;
 		}
-		return false;
-	}
+        if (retourPromenade) {
+            System.out.println(pokemon.getName() + " a apprécié la promenade : " + location.toString());
+            System.out.println("Expérience de " + pokemon.getName() + " : " + pokemon.getExperience());
+        } else {
+            System.out.println(pokemon.getName() + " n'a pas apprécié la promenade : " + location.toString());
+        }
+        System.out.println(" ");
+    }
+
+	public static void discuter(List<Pokemon> pokemons) {
+	        Collections.shuffle(pokemons);
+	        Random random = new Random();
+	        int count = 0;
+	        while (count < 5 && count < pokemons.size()) {
+	            Pokemon pokemon = pokemons.get(count);
+	            String phrase = genererPhrase(pokemon.getspecie().getName(), random);
+	            System.out.println(pokemon.getName() + " dit : " + phrase);
+	            count++;
+	        }
+			System.out.println(" ");
+	 }
+	 
+	 public static String genererPhrase(String especeNom, Random random) {
+	        int repetitions = random.nextInt(3) + 1; 
+	        StringBuilder phrase = new StringBuilder();
+	        for (int i = 0; i < repetitions; i++) {
+	            if (i > 0) {
+	                phrase.append(" ");
+	            }
+	            phrase.append(especeNom);
+	        }
+	        char ponctuation = genererPonctuation(random);
+	        phrase.append(ponctuation);
+	        return phrase.toString();
+	 }
+
+	 public static char genererPonctuation(Random random) {
+	        char[] ponctuations = {'.', '!', '?'};
+	        return ponctuations[random.nextInt(ponctuations.length)];
+	 }
+
+     
 
 }

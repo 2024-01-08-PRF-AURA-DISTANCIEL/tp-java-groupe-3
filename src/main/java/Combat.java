@@ -46,6 +46,13 @@ public class Combat {
 		}
 		return combatantA.getCurrentLifePoints() > 0 ? combatantA.getId() : combatantB.getId();
 	}
+
+	public static void announcement(Pokemon pokemon) {
+    	System.out.println("The winner of the fight is"  + " " +  pokemon.getName());
+    	System.out.println("Their experience is now" + " " +  pokemon.getExperience());
+    	System.out.println("Their level is" + " "+ pokemon.getLevel());
+		System.out.println(" ");
+    }
 	
 	public void endCombat() {
 		return;
