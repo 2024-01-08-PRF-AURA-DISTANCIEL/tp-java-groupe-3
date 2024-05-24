@@ -97,7 +97,7 @@ public class Pokemon {
 			pokemon.setCurrentLifePoints(Double.valueOf("0"));
 		}
 		if(attackModifier >1) {System.out.println("Attaque super efficace");}
-		else if(attackModifier <1) {System.out.println("Ce n'est pas trés efficace");}
+		else if(attackModifier <1) {System.out.println("Ce n'est pas tres efficace");}
 		System.out.println("Attaque : " + this.getCurrentLifePoints() + "-" + pokemon.getCurrentLifePoints());
 	}
 
