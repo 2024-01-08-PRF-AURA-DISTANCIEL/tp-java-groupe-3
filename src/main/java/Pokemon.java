@@ -47,6 +47,11 @@ public class Pokemon {
 		return experience;
 	}
 	public void setExperience(int experience) {
+		int expTemp = experience - (this.getLevel() * 5) - 5;
+		while(expTemp >= 5){
+			this.setLevel(this.getLevel() + 1);
+			expTemp = expTemp - 5;
+		}
 		this.experience = experience;
 	}
 	public PokemonSpecie getSpecie() {
